@@ -12,6 +12,19 @@ http.createServer((request, response) => {
 		
 		let ext = file.substring( file.lastIndexOf(".") ).toLowerCase()
 
+		console.log(`Usted quiere este recurso: ${file}`)
+
+		if( file == "/enviar" ){
+
+			request.on("data", function(form){
+				
+				response.end( form )
+
+			})
+
+
+		}
+
 		let types = {
 			".html"	: "text/html",
 			".js"	: "text/javascript",
