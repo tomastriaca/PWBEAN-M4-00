@@ -1,6 +1,6 @@
 const http = require("http")
 const fs = require("fs")
-
+const queryString= require("queryString")
 const port = 4000
 
 http.createServer((request, response) => {
@@ -13,17 +13,21 @@ http.createServer((request, response) => {
 		let ext = file.substring( file.lastIndexOf(".") ).toLowerCase()
 
 		console.log(`Usted quiere este recurso: ${file}`)
+			if( file == "/enviar" && request.method == "POST"){
 
-		if( file == "/enviar" ){
+				request.on("data", function(form){
 
-			request.on("data", function(form){
+					let datos= form.toString()
+
+					let objeto= queryString.parse(datos)
+
+					console.log(objeto)
+
+					response.end( "miren la consola!")
+				})
+
 				
-				response.end( form )
-
-			})
-
-
-		}
+			}
 
 		let types = {
 			".html"	: "text/html",
